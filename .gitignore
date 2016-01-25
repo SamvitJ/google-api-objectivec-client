@@ -4,5 +4,23 @@ Source/Tools/ServiceGenerator/ServiceGenerator.xcodeproj/project.xcworkspace/xcu
 Source/Tools/ServiceGenerator/ServiceGenerator.xcodeproj/xcuserdata
 Source/Tools/ServiceGenerator/build
 
+# XCode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+
 # Any place they exist.
 .DS_Store

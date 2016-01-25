@@ -375,6 +375,7 @@
 		4FEE17CA1C03DB9E00A38758 /* GTMHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMHTTPServer.m; path = UnitTests/GTMHTTPServer.m; sourceTree = "<group>"; };
 		4FEE17CB1C03DB9E00A38758 /* GTMSessionFetcherTestServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSessionFetcherTestServer.h; path = UnitTests/GTMSessionFetcherTestServer.h; sourceTree = "<group>"; };
 		4FEE17CC1C03DB9E00A38758 /* GTMSessionFetcherTestServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSessionFetcherTestServer.m; path = UnitTests/GTMSessionFetcherTestServer.m; sourceTree = "<group>"; };
+		F1065AA71C5450ED00997E84 /* libGTMSessionFetcherLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGTMSessionFetcherLib.a; path = "../../gtm-session-fetcher/Source/build/Debug-iphoneos/libGTMSessionFetcherLib.a"; sourceTree = "<group>"; };
 		F407F0FE136F948A005A4866 /* GTLTasksConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLTasksConstants.h; path = Generated/GTLTasksConstants.h; sourceTree = "<group>"; };
 		F407F0FF136F948A005A4866 /* GTLTasksConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLTasksConstants.m; path = Generated/GTLTasksConstants.m; sourceTree = "<group>"; };
 		F4368F721B8233BF00E17643 /* GTLiOSUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GTLiOSUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -472,6 +473,7 @@
 		089C166AFE841209C02AAC07 /* GoogleBundle */ = {
 			isa = PBXGroup;
 			children = (
+				F1065AA71C5450ED00997E84 /* libGTMSessionFetcherLib.a */,
 				32C88E010371C26100C91783 /* GTL Source */,
 				4FCC7A1B11EFD9C80097924C /* Tests */,
 				4FA9C7410B72AB1600DA5920 /* Test Tool */,
@@ -930,6 +932,9 @@
 					F4368F711B8233BF00E17643 = {
 						CreatedOnToolsVersion = 6.3.2;
 					};
+					F4469D791C40229D00BCFAA1 = {
+						DevelopmentTeam = PFW5N3BMBW;
+					};
 				};
 			};
 			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "GTLCore" */;
@@ -1242,6 +1247,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Samvit Jain (P4GMM4DQN8)";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
@@ -1250,6 +1256,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = "GTM_USE_SESSION_FETCHER=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -1264,6 +1271,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DDEBUG=1";
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
@@ -1300,6 +1308,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Samvit Jain (P4GMM4DQN8)";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -1308,6 +1317,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = "GTM_USE_SESSION_FETCHER=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
@@ -1320,6 +1330,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
@@ -1470,6 +1481,8 @@
 		F4469DB21C40229D00BCFAA1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1479,6 +1492,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTL;
 				PRODUCT_NAME = GTL;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1488,6 +1502,8 @@
 		F4469DB31C40229D00BCFAA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1497,6 +1513,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.google.GTL;
 				PRODUCT_NAME = GTL;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				STRIP_STYLE = "non-global";
 				TARGETED_DEVICE_FAMILY = "1,2";
