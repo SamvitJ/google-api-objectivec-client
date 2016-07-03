@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 // Documentation:
 //   https://developers.google.com/ad-exchange/buyer-rest
 // Classes:
-//   GTLAdExchangeBuyerPricePerBuyer (0 custom class methods, 2 custom properties)
+//   GTLAdExchangeBuyerPricePerBuyer (0 custom class methods, 3 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -45,13 +45,16 @@
 //
 
 // Used to specify pricing rules for buyers/advertisers. Each PricePerBuyer in
-// an offer can become [0,1] deals. To check if there is a PricePerBuyer for a
+// an product can become [0,1] deals. To check if there is a PricePerBuyer for a
 // particular buyer or buyer/advertiser pair, we look for the most specific
 // matching rule - we first look for a rule matching the buyer and advertiser,
 // next a rule with the buyer but an empty advertiser list, and otherwise look
 // for a matching rule where no buyer is set.
 
 @interface GTLAdExchangeBuyerPricePerBuyer : GTLObject
+
+// Optional access type for this buyer.
+@property (nonatomic, copy) NSString *auctionTier;
 
 // The buyer who will pay this price. If unset, all buyers can pay this price
 // (if the advertisers match, and there's no more specific rule matching the

@@ -22,7 +22,8 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 // Classes:
@@ -1427,7 +1428,7 @@
 //     object will contain resource details in the resource's default language.
 //   maxResults: The maxResults parameter specifies the maximum number of
 //     messages that should be returned in the result set. (200..2000, default
-//     200)
+//     500)
 //   pageToken: The pageToken parameter identifies a specific page in the result
 //     set that should be returned. In an API response, the nextPageToken
 //     property identify other pages that could be retrieved.

@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,14 @@
 // Service:
 //   Drive API (drive/v3)
 // Description:
-//   The API to interact with Drive.
+//   Manages files in Drive including uploading, downloading, searching,
+//   detecting changes, and updating sharing permissions.
 // Documentation:
 //   https://developers.google.com/drive/
 // Classes:
-//   GTLDriveFile (0 custom class methods, 43 custom properties)
+//   GTLDriveFile (0 custom class methods, 44 custom properties)
 //   GTLDriveFileAppProperties (0 custom class methods, 0 custom properties)
-//   GTLDriveFileCapabilities (0 custom class methods, 4 custom properties)
+//   GTLDriveFileCapabilities (0 custom class methods, 5 custom properties)
 //   GTLDriveFileContentHints (0 custom class methods, 2 custom properties)
 //   GTLDriveFileImageMediaMetadata (0 custom class methods, 21 custom properties)
 //   GTLDriveFileProperties (0 custom class methods, 0 custom properties)
@@ -50,12 +51,13 @@
 @dynamic appProperties, capabilities, contentHints, createdTime,
          descriptionProperty, explicitlyTrashed, fileExtension, folderColorRgb,
          fullFileExtension, headRevisionId, iconLink, identifier,
-         imageMediaMetadata, kind, lastModifyingUser, md5Checksum, mimeType,
-         modifiedByMeTime, modifiedTime, name, originalFilename, ownedByMe,
-         owners, parents, permissions, properties, quotaBytesUsed, shared,
-         sharedWithMeTime, sharingUser, size, spaces, starred, thumbnailLink,
-         trashed, version, videoMediaMetadata, viewedByMe, viewedByMeTime,
-         viewersCanCopyContent, webContentLink, webViewLink, writersCanShare;
+         imageMediaMetadata, isAppAuthorized, kind, lastModifyingUser,
+         md5Checksum, mimeType, modifiedByMeTime, modifiedTime, name,
+         originalFilename, ownedByMe, owners, parents, permissions, properties,
+         quotaBytesUsed, shared, sharedWithMeTime, sharingUser, size, spaces,
+         starred, thumbnailLink, trashed, version, videoMediaMetadata,
+         viewedByMe, viewedByMeTime, viewersCanCopyContent, webContentLink,
+         webViewLink, writersCanShare;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map = @{
@@ -102,7 +104,7 @@
 //
 
 @implementation GTLDriveFileCapabilities
-@dynamic canComment, canCopy, canEdit, canShare;
+@dynamic canComment, canCopy, canEdit, canReadRevisions, canShare;
 @end
 
 

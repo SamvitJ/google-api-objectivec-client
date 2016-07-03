@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,14 @@
 // Service:
 //   Drive API (drive/v3)
 // Description:
-//   The API to interact with Drive.
+//   Manages files in Drive including uploading, downloading, searching,
+//   detecting changes, and updating sharing permissions.
 // Documentation:
 //   https://developers.google.com/drive/
 // Classes:
-//   GTLDriveFile (0 custom class methods, 43 custom properties)
+//   GTLDriveFile (0 custom class methods, 44 custom properties)
 //   GTLDriveFileAppProperties (0 custom class methods, 0 custom properties)
-//   GTLDriveFileCapabilities (0 custom class methods, 4 custom properties)
+//   GTLDriveFileCapabilities (0 custom class methods, 5 custom properties)
 //   GTLDriveFileContentHints (0 custom class methods, 2 custom properties)
 //   GTLDriveFileImageMediaMetadata (0 custom class methods, 21 custom properties)
 //   GTLDriveFileProperties (0 custom class methods, 0 custom properties)
@@ -115,6 +116,9 @@
 
 // Additional metadata about image media, if available.
 @property (nonatomic, retain) GTLDriveFileImageMediaMetadata *imageMediaMetadata;
+
+// Whether the file was created or opened by the requesting app.
+@property (nonatomic, retain) NSNumber *isAppAuthorized;  // boolValue
 
 // This is always drive#file.
 @property (nonatomic, copy) NSString *kind;
@@ -266,6 +270,10 @@
 
 // Whether the user can edit the file's content.
 @property (nonatomic, retain) NSNumber *canEdit;  // boolValue
+
+// Whether the current user has read access to the Revisions resource of the
+// file.
+@property (nonatomic, retain) NSNumber *canReadRevisions;  // boolValue
 
 // Whether the user can modify the file's permissions and sharing settings.
 @property (nonatomic, retain) NSNumber *canShare;  // boolValue

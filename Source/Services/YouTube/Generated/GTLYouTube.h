@@ -22,7 +22,8 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 
@@ -56,7 +57,6 @@
 #import "GTLYouTubeChannelContentOwnerDetails.h"
 #import "GTLYouTubeChannelConversionPing.h"
 #import "GTLYouTubeChannelConversionPings.h"
-#import "GTLYouTubeChannelId.h"
 #import "GTLYouTubeChannelListResponse.h"
 #import "GTLYouTubeChannelLocalization.h"
 #import "GTLYouTubeChannelProfileDetails.h"
@@ -113,12 +113,15 @@
 #import "GTLYouTubeLiveChatFanFundingEventDetails.h"
 #import "GTLYouTubeLiveChatMessage.h"
 #import "GTLYouTubeLiveChatMessageAuthorDetails.h"
+#import "GTLYouTubeLiveChatMessageDeletedDetails.h"
 #import "GTLYouTubeLiveChatMessageListResponse.h"
+#import "GTLYouTubeLiveChatMessageRetractedDetails.h"
 #import "GTLYouTubeLiveChatMessageSnippet.h"
 #import "GTLYouTubeLiveChatModerator.h"
 #import "GTLYouTubeLiveChatModeratorListResponse.h"
 #import "GTLYouTubeLiveChatModeratorSnippet.h"
 #import "GTLYouTubeLiveChatTextMessageDetails.h"
+#import "GTLYouTubeLiveChatUserBannedMessageDetails.h"
 #import "GTLYouTubeLiveStream.h"
 #import "GTLYouTubeLiveStreamConfigurationIssue.h"
 #import "GTLYouTubeLiveStreamContentDetails.h"
@@ -173,8 +176,6 @@
 #import "GTLYouTubeVideoCategorySnippet.h"
 #import "GTLYouTubeVideoContentDetails.h"
 #import "GTLYouTubeVideoContentDetailsRegionRestriction.h"
-#import "GTLYouTubeVideoConversionPing.h"
-#import "GTLYouTubeVideoConversionPings.h"
 #import "GTLYouTubeVideoFileDetails.h"
 #import "GTLYouTubeVideoFileDetailsAudioStream.h"
 #import "GTLYouTubeVideoFileDetailsVideoStream.h"

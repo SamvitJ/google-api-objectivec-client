@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Since iOS needs to be forced over to the simulator for testing (to avoid
-# trying to sign), it works best to wrap the invokes of xctool.
-
 set -eu
 
 if [[ "$#" -ne 2 ]]; then
@@ -10,20 +7,40 @@ if [[ "$#" -ne 2 ]]; then
   exit 10
 fi
 
-BUILD_MODE="$1"
-BUILD_CFG="$2"
+readonly BUILD_MODE="$1"
+readonly BUILD_CFG="$2"
 
-CMD_BUILDER=(
-  xctool \
-    -project Source/GTLCore.xcodeproj
-)
+# Default to "build", based on BUILD_MODE below.
+XCODEBUILD_ACTION="build"
+
+# Report then run the build
+RunXcodeBuild() {
+  echo xcodebuild "$@"
+  xcodebuild "$@"
+}
 
 case "${BUILD_MODE}" in
-  iOS)
-    CMD_BUILDER+=(-scheme "iOS Framework and Tests" -sdk iphonesimulator)
+  iOSCore)
+    CMD_BUILDER+=(
+      -project Source/GTLCore.xcodeproj
+      -scheme "iOS Framework and Tests"
+      -destination "platform=iOS Simulator,name=iPhone 6,OS=latest"
+    )
+    XCODEBUILD_ACTION="test"
     ;;
-  OSX)
-    CMD_BUILDER+=(-scheme "OS X Framework and Tests")
+  OSXCore)
+    CMD_BUILDER+=(
+      -project Source/GTLCore.xcodeproj
+      -scheme "OS X Framework and Tests"
+    )
+    XCODEBUILD_ACTION="test"
+    ;;
+  Example_*)
+    EXAMPLE_NAME="${BUILD_MODE/Example_/}"
+    CMD_BUILDER+=(
+      -project "Examples/${EXAMPLE_NAME}/${EXAMPLE_NAME}.xcodeproj"
+      -scheme "${EXAMPLE_NAME}"
+    )
     ;;
   *)
     echo "Unknown BUILD_MODE: ${BUILD_MODE}"
@@ -33,17 +50,14 @@ esac
 
 case "${BUILD_CFG}" in
   Debug|Release)
-    CMD_BUILDER+=(-configuration "${BUILD_CFG}")
+    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration "${BUILD_CFG}" "${XCODEBUILD_ACTION}"
+    ;;
+  Both)
+    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration Debug "${XCODEBUILD_ACTION}"
+    RunXcodeBuild "${CMD_BUILDER[@]}" -configuration Release "${XCODEBUILD_ACTION}"
     ;;
   *)
     echo "Unknown BUILD_CFG: ${BUILD_CFG}"
     exit 12
     ;;
 esac
-
-CMD_BUILDER+=(
-  build test
-)
-
-set -x
-exec "${CMD_BUILDER[@]}"

@@ -22,7 +22,7 @@
 // Service:
 //   Google+ API (plus/v1)
 // Description:
-//   The Google+ API enables developers to build on top of the Google+ platform.
+//   Builds on top of the Google+ platform.
 // Documentation:
 //   https://developers.google.com/+/api/
 
@@ -35,7 +35,7 @@
 #endif
 
 // Authorization scope
-// Know your basic profile info and list of people in your circles.
+// Know the list of people in your circles, your age range, and language
 GTL_EXTERN NSString * const kGTLAuthScopePlusLogin;            // "https://www.googleapis.com/auth/plus.login"
 // Know who you are on Google
 GTL_EXTERN NSString * const kGTLAuthScopePlusMe;               // "https://www.googleapis.com/auth/plus.me"

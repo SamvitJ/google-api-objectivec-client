@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@
 // Documentation:
 //   https://cloud.google.com/bigquery/
 // Classes:
-//   GTLBigqueryTable (0 custom class methods, 18 custom properties)
+//   GTLBigqueryTable (0 custom class methods, 20 custom properties)
 
 #import "GTLBigqueryTable.h"
 
@@ -34,6 +34,7 @@
 #import "GTLBigqueryStreamingbuffer.h"
 #import "GTLBigqueryTableReference.h"
 #import "GTLBigqueryTableSchema.h"
+#import "GTLBigqueryTimePartitioning.h"
 #import "GTLBigqueryViewDefinition.h"
 
 // ----------------------------------------------------------------------------
@@ -44,8 +45,9 @@
 @implementation GTLBigqueryTable
 @dynamic creationTime, descriptionProperty, ETag, expirationTime,
          externalDataConfiguration, friendlyName, identifier, kind,
-         lastModifiedTime, location, numBytes, numRows, schema, selfLink,
-         streamingBuffer, tableReference, type, view;
+         lastModifiedTime, location, numBytes, numLongTermBytes, numRows,
+         schema, selfLink, streamingBuffer, tableReference, timePartitioning,
+         type, view;
 
 + (NSDictionary *)propertyToJSONKeyMap {
   NSDictionary *map = @{

@@ -25,7 +25,8 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 
@@ -59,7 +60,6 @@
 #import "GTLYouTubeChannelContentOwnerDetails.m"
 #import "GTLYouTubeChannelConversionPing.m"
 #import "GTLYouTubeChannelConversionPings.m"
-#import "GTLYouTubeChannelId.m"
 #import "GTLYouTubeChannelListResponse.m"
 #import "GTLYouTubeChannelLocalization.m"
 #import "GTLYouTubeChannelProfileDetails.m"
@@ -116,12 +116,15 @@
 #import "GTLYouTubeLiveChatFanFundingEventDetails.m"
 #import "GTLYouTubeLiveChatMessage.m"
 #import "GTLYouTubeLiveChatMessageAuthorDetails.m"
+#import "GTLYouTubeLiveChatMessageDeletedDetails.m"
 #import "GTLYouTubeLiveChatMessageListResponse.m"
+#import "GTLYouTubeLiveChatMessageRetractedDetails.m"
 #import "GTLYouTubeLiveChatMessageSnippet.m"
 #import "GTLYouTubeLiveChatModerator.m"
 #import "GTLYouTubeLiveChatModeratorListResponse.m"
 #import "GTLYouTubeLiveChatModeratorSnippet.m"
 #import "GTLYouTubeLiveChatTextMessageDetails.m"
+#import "GTLYouTubeLiveChatUserBannedMessageDetails.m"
 #import "GTLYouTubeLiveStream.m"
 #import "GTLYouTubeLiveStreamConfigurationIssue.m"
 #import "GTLYouTubeLiveStreamContentDetails.m"
@@ -176,8 +179,6 @@
 #import "GTLYouTubeVideoCategorySnippet.m"
 #import "GTLYouTubeVideoContentDetails.m"
 #import "GTLYouTubeVideoContentDetailsRegionRestriction.m"
-#import "GTLYouTubeVideoConversionPing.m"
-#import "GTLYouTubeVideoConversionPings.m"
 #import "GTLYouTubeVideoFileDetails.m"
 #import "GTLYouTubeVideoFileDetailsAudioStream.m"
 #import "GTLYouTubeVideoFileDetailsVideoStream.m"

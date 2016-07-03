@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,13 @@
 // Documentation:
 //   https://cloud.google.com/bigquery/
 // Classes:
-//   GTLBigqueryExternalDataConfiguration (0 custom class methods, 7 custom properties)
+//   GTLBigqueryExternalDataConfiguration (0 custom class methods, 10 custom properties)
 
 #import "GTLBigqueryExternalDataConfiguration.h"
 
+#import "GTLBigqueryBigtableOptions.h"
 #import "GTLBigqueryCsvOptions.h"
+#import "GTLBigqueryGoogleSheetsOptions.h"
 #import "GTLBigqueryTableSchema.h"
 
 // ----------------------------------------------------------------------------
@@ -39,7 +41,8 @@
 //
 
 @implementation GTLBigqueryExternalDataConfiguration
-@dynamic compression, csvOptions, ignoreUnknownValues, maxBadRecords, schema,
+@dynamic autodetect, bigtableOptions, compression, csvOptions,
+         googleSheetsOptions, ignoreUnknownValues, maxBadRecords, schema,
          sourceFormat, sourceUris;
 
 + (NSDictionary *)arrayPropertyToClassMap {

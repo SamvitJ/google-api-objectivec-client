@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 // Classes:
-//   GTLYouTubeContentRating (0 custom class methods, 65 custom properties)
+//   GTLYouTubeContentRating (0 custom class methods, 66 custom properties)
 
 #import "GTLYouTubeContentRating.h"
 
@@ -40,13 +41,13 @@
          bmukkRating, catvfrRating, catvRating, cbfcRating, cccRating,
          cceRating, chfilmRating, chvrsRating, cicfRating, cnaRating, cncRating,
          csaRating, cscfRating, czfilmRating, djctqRating, djctqRatingReasons,
-         eefilmRating, egfilmRating, eirinRating, fcbmRating, fcoRating,
-         fmocRating, fpbRating, fskRating, grfilmRating, icaaRating, ifcoRating,
-         ilfilmRating, incaaRating, kfcbRating, kijkwijzerRating, kmrbRating,
-         lsfRating, mccaaRating, mccypRating, mdaRating, medietilsynetRating,
-         mekuRating, mibacRating, mocRating, moctwRating, mpaaRating,
-         mtrcbRating, nbcplRating, nbcRating, nfrcRating, nfvcbRating,
-         nkclvRating, oflcRating, pefilmRating, rcnofRating,
+         ecbmctRating, eefilmRating, egfilmRating, eirinRating, fcbmRating,
+         fcoRating, fmocRating, fpbRating, fskRating, grfilmRating, icaaRating,
+         ifcoRating, ilfilmRating, incaaRating, kfcbRating, kijkwijzerRating,
+         kmrbRating, lsfRating, mccaaRating, mccypRating, mdaRating,
+         medietilsynetRating, mekuRating, mibacRating, mocRating, moctwRating,
+         mpaaRating, mtrcbRating, nbcplRating, nbcRating, nfrcRating,
+         nfvcbRating, nkclvRating, oflcRating, pefilmRating, rcnofRating,
          resorteviolenciaRating, rtcRating, rteRating, russiaRating,
          skfilmRating, smaisRating, smsaRating, tvpgRating, ytRating;
 

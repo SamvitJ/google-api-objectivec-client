@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 // Classes:
-//   GTLYouTubeSearchListResponse (0 custom class methods, 9 custom properties)
+//   GTLYouTubeSearchListResponse (0 custom class methods, 10 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -71,6 +72,7 @@
 // retrieve the previous page in the result set.
 @property (nonatomic, copy) NSString *prevPageToken;
 
+@property (nonatomic, copy) NSString *regionCode;
 @property (nonatomic, retain) GTLYouTubeTokenPagination *tokenPagination;
 
 // The visitorId identifies the visitor.

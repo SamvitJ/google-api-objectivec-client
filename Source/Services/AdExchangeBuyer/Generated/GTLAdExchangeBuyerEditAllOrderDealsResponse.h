@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 // Documentation:
 //   https://developers.google.com/ad-exchange/buyer-rest
 // Classes:
-//   GTLAdExchangeBuyerEditAllOrderDealsResponse (0 custom class methods, 1 custom properties)
+//   GTLAdExchangeBuyerEditAllOrderDealsResponse (0 custom class methods, 2 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -45,7 +45,10 @@
 
 @interface GTLAdExchangeBuyerEditAllOrderDealsResponse : GTLObject
 
-// List of all deals in the order after edit.
+// List of all deals in the proposal after edit.
 @property (nonatomic, retain) NSArray *deals;  // of GTLAdExchangeBuyerMarketplaceDeal
+
+// The latest revision number after the update has been applied.
+@property (nonatomic, retain) NSNumber *orderRevisionNumber;  // longLongValue
 
 @end

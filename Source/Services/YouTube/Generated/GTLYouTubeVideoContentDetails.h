@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,12 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 // Classes:
-//   GTLYouTubeVideoContentDetails (0 custom class methods, 8 custom properties)
+//   GTLYouTubeVideoContentDetails (0 custom class methods, 9 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -77,6 +78,9 @@
 // The value of is_license_content indicates whether the video is licensed
 // content.
 @property (nonatomic, retain) NSNumber *licensedContent;  // boolValue
+
+// Specifies the projection format of the video.
+@property (nonatomic, copy) NSString *projection;
 
 // The regionRestriction object contains information about the countries where a
 // video is (or is not) viewable. The object will contain either the

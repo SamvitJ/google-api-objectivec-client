@@ -28,6 +28,9 @@
 
 #import "GTLBigqueryConstants.h"
 
+#import "GTLBigqueryBigtableColumn.h"
+#import "GTLBigqueryBigtableColumnFamily.h"
+#import "GTLBigqueryBigtableOptions.h"
 #import "GTLBigqueryCsvOptions.h"
 #import "GTLBigqueryDataset.h"
 #import "GTLBigqueryDatasetList.h"
@@ -37,6 +40,7 @@
 #import "GTLBigqueryExplainQueryStep.h"
 #import "GTLBigqueryExternalDataConfiguration.h"
 #import "GTLBigqueryGetQueryResultsResponse.h"
+#import "GTLBigqueryGoogleSheetsOptions.h"
 #import "GTLBigqueryJob.h"
 #import "GTLBigqueryJobCancelResponse.h"
 #import "GTLBigqueryJobConfiguration.h"
@@ -65,6 +69,7 @@
 #import "GTLBigqueryTableReference.h"
 #import "GTLBigqueryTableRow.h"
 #import "GTLBigqueryTableSchema.h"
+#import "GTLBigqueryTimePartitioning.h"
 #import "GTLBigqueryUserDefinedFunctionResource.h"
 #import "GTLBigqueryViewDefinition.h"
 

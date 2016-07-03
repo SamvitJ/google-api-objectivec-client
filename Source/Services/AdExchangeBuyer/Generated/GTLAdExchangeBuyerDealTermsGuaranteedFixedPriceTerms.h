@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@
 // Documentation:
 //   https://developers.google.com/ad-exchange/buyer-rest
 // Classes:
-//   GTLAdExchangeBuyerDealTermsGuaranteedFixedPriceTerms (0 custom class methods, 3 custom properties)
+//   GTLAdExchangeBuyerDealTermsGuaranteedFixedPriceTerms (0 custom class methods, 4 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -36,6 +36,7 @@
   #import "GTLObject.h"
 #endif
 
+@class GTLAdExchangeBuyerDealTermsGuaranteedFixedPriceTermsBillingInfo;
 @class GTLAdExchangeBuyerPricePerBuyer;
 
 // ----------------------------------------------------------------------------
@@ -45,6 +46,10 @@
 
 @interface GTLAdExchangeBuyerDealTermsGuaranteedFixedPriceTerms : GTLObject
 
+// External billing info for this Deal. This field is relevant when external
+// billing info such as price has a different currency code than DFP/AdX.
+@property (nonatomic, retain) GTLAdExchangeBuyerDealTermsGuaranteedFixedPriceTermsBillingInfo *billingInfo;
+
 // Fixed price for the specified buyer.
 @property (nonatomic, retain) NSArray *fixedPrices;  // of GTLAdExchangeBuyerPricePerBuyer
 
@@ -52,7 +57,7 @@
 // looks that the buyer is guaranteeing to buy.
 @property (nonatomic, retain) NSNumber *guaranteedImpressions;  // longLongValue
 
-// Count of guaranteed looks. Required for deal, optional for offer.
+// Count of guaranteed looks. Required for deal, optional for product.
 @property (nonatomic, retain) NSNumber *guaranteedLooks;  // longLongValue
 
 @end

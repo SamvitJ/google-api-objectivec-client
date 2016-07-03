@@ -31,6 +31,9 @@
 
 #import "GTLBigqueryConstants.m"
 
+#import "GTLBigqueryBigtableColumn.m"
+#import "GTLBigqueryBigtableColumnFamily.m"
+#import "GTLBigqueryBigtableOptions.m"
 #import "GTLBigqueryCsvOptions.m"
 #import "GTLBigqueryDataset.m"
 #import "GTLBigqueryDatasetList.m"
@@ -40,6 +43,7 @@
 #import "GTLBigqueryExplainQueryStep.m"
 #import "GTLBigqueryExternalDataConfiguration.m"
 #import "GTLBigqueryGetQueryResultsResponse.m"
+#import "GTLBigqueryGoogleSheetsOptions.m"
 #import "GTLBigqueryJob.m"
 #import "GTLBigqueryJobCancelResponse.m"
 #import "GTLBigqueryJobConfiguration.m"
@@ -68,6 +72,7 @@
 #import "GTLBigqueryTableReference.m"
 #import "GTLBigqueryTableRow.m"
 #import "GTLBigqueryTableSchema.m"
+#import "GTLBigqueryTimePartitioning.m"
 #import "GTLBigqueryUserDefinedFunctionResource.m"
 #import "GTLBigqueryViewDefinition.m"
 

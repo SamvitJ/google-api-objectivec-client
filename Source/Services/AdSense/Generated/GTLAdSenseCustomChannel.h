@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,7 @@
 // Service:
 //   AdSense Management API (adsense/v1.4)
 // Description:
-//   Gives AdSense publishers access to their inventory and the ability to
-//   generate reports
+//   Accesses AdSense publishers' inventory and generates performance reports.
 // Documentation:
 //   https://developers.google.com/adsense/management/
 // Classes:
@@ -80,10 +79,10 @@
 @property (nonatomic, copy) NSString *descriptionProperty;
 
 // The locations in which ads appear. (Only valid for content and mobile content
-// ads). Acceptable values for content ads are: TOP_LEFT, TOP_CENTER, TOP_RIGHT,
-// MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT, BOTTOM_CENTER,
-// BOTTOM_RIGHT, MULTIPLE_LOCATIONS. Acceptable values for mobile content ads
-// are: TOP, MIDDLE, BOTTOM, MULTIPLE_LOCATIONS.
+// ads (deprecated)). Acceptable values for content ads are: TOP_LEFT,
+// TOP_CENTER, TOP_RIGHT, MIDDLE_LEFT, MIDDLE_CENTER, MIDDLE_RIGHT, BOTTOM_LEFT,
+// BOTTOM_CENTER, BOTTOM_RIGHT, MULTIPLE_LOCATIONS. Acceptable values for mobile
+// content ads (deprecated) are: TOP, MIDDLE, BOTTOM, MULTIPLE_LOCATIONS.
 @property (nonatomic, copy) NSString *location;
 
 // The language of the sites ads will be displayed on.

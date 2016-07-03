@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@
 // Service:
 //   AdSense Host API (adsensehost/v4.1)
 // Description:
-//   Gives AdSense Hosts access to report generation, ad code generation, and
-//   publisher management capabilities.
+//   Generates performance reports, generates ad codes, and provides publisher
+//   management capabilities for AdSense Hosts.
 // Documentation:
 //   https://developers.google.com/adsense/host/
 // Classes:
@@ -53,7 +53,8 @@
 // Identity code of this ad unit, not necessarily unique across ad clients.
 @property (nonatomic, copy) NSString *code;
 
-// Settings specific to content ads (AFC) and highend mobile content ads (AFMC).
+// Settings specific to content ads (AFC) and highend mobile content ads (AFMC -
+// deprecated).
 @property (nonatomic, retain) GTLAdSenseHostAdUnitContentAdsSettings *contentAdsSettings;
 
 // Custom style information specific to this ad unit.
@@ -67,7 +68,7 @@
 // Kind of resource this is, in this case adsensehost#adUnit.
 @property (nonatomic, copy) NSString *kind;
 
-// Settings specific to WAP mobile content ads (AFMC).
+// Settings specific to WAP mobile content ads (AFMC - deprecated).
 @property (nonatomic, retain) GTLAdSenseHostAdUnitMobileContentAdsSettings *mobileContentAdsSettings;
 
 // Name of this ad unit.

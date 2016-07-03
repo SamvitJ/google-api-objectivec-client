@@ -22,7 +22,7 @@
 // Service:
 //   Search Console API (webmasters/v3)
 // Description:
-//   Lets you view Google Search Console data for your verified sites.
+//   View Google Search Console data for your verified sites.
 // Documentation:
 //   https://developers.google.com/webmaster-tools/
 
@@ -34,6 +34,7 @@ NSString * const kGTLAuthScopeWebmastersReadonly = @"https://www.googleapis.com/
 
 // GTLQueryWebmasters - Category
 NSString * const kGTLWebmastersCategoryAuthPermissions   = @"authPermissions";
+NSString * const kGTLWebmastersCategoryFlashContent      = @"flashContent";
 NSString * const kGTLWebmastersCategoryManyToOneRedirect = @"manyToOneRedirect";
 NSString * const kGTLWebmastersCategoryNotFollowed       = @"notFollowed";
 NSString * const kGTLWebmastersCategoryNotFound          = @"notFound";

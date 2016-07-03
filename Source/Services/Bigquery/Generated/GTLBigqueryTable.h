@@ -26,7 +26,7 @@
 // Documentation:
 //   https://cloud.google.com/bigquery/
 // Classes:
-//   GTLBigqueryTable (0 custom class methods, 18 custom properties)
+//   GTLBigqueryTable (0 custom class methods, 20 custom properties)
 
 #if GTL_BUILT_AS_FRAMEWORK
   #import "GTL/GTLObject.h"
@@ -38,6 +38,7 @@
 @class GTLBigqueryStreamingbuffer;
 @class GTLBigqueryTableReference;
 @class GTLBigqueryTableSchema;
+@class GTLBigqueryTimePartitioning;
 @class GTLBigqueryViewDefinition;
 
 // ----------------------------------------------------------------------------
@@ -63,7 +64,7 @@
 // deleted and their storage reclaimed.
 @property (nonatomic, retain) NSNumber *expirationTime;  // longLongValue
 
-// [Experimental] Describes the data format, location, and other properties of a
+// [Optional] Describes the data format, location, and other properties of a
 // table stored outside of BigQuery. By defining these properties, the data
 // source can then be queried as if it were a standard BigQuery table.
 @property (nonatomic, retain) GTLBigqueryExternalDataConfiguration *externalDataConfiguration;
@@ -90,6 +91,10 @@
 // streaming buffer.
 @property (nonatomic, retain) NSNumber *numBytes;  // longLongValue
 
+// [Output-only] The number of bytes in the table that are considered "long-term
+// storage".
+@property (nonatomic, retain) NSNumber *numLongTermBytes;  // longLongValue
+
 // [Output-only] The number of rows of data in this table, excluding any data in
 // the streaming buffer.
 @property (nonatomic, retain) NSNumber *numRows;  // unsignedLongLongValue
@@ -107,6 +112,10 @@
 
 // [Required] Reference describing the ID of this table.
 @property (nonatomic, retain) GTLBigqueryTableReference *tableReference;
+
+// [Experimental] If specified, configures time-based partitioning for this
+// table.
+@property (nonatomic, retain) GTLBigqueryTimePartitioning *timePartitioning;
 
 // [Output-only] Describes the table type. The following values are supported:
 // TABLE: A normal BigQuery table. VIEW: A virtual table defined by a SQL query.

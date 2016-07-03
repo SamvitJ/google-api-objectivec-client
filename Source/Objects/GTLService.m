@@ -79,6 +79,17 @@ static NSString *ETagIfPresent(GTLObject *obj) {
 }
 @end
 
+#if !defined(GTL_HAS_SESSION_UPLOAD_FETCHER_IMPORT)
+#define GTL_HAS_SESSION_UPLOAD_FETCHER_IMPORT 0
+#endif
+
+#if GTL_HAS_SESSION_UPLOAD_FETCHER_IMPORT
+#if GTL_USE_FRAMEWORK_IMPORTS
+  #import <GTMSessionFetcher/GTMSessionUploadFetcher.h>
+#else
+  #import "GTMSessionUploadFetcher.h"
+#endif // GTL_USE_FRAMEWORK_IMPORTS
+#else
 // If the upload fetcher class is available, it can be used for chunked uploads
 //
 // We locally declare some methods of the upload fetcher so we
@@ -123,6 +134,7 @@ static NSString *ETagIfPresent(GTLObject *obj) {
 - (void)resumeFetching;
 - (BOOL)isPaused;
 @end
+#endif  // GTL_HAS_SESSION_UPLOAD_FETCHER_IMPORT
 
 
 @interface GTLService ()
@@ -165,6 +177,10 @@ static NSString *ETagIfPresent(GTLObject *obj) {
 @property (retain) NSString *ETag;
 @property (retain) NSString *nextPageToken;
 @property (retain) NSNumber *nextStartIndex;
+@end
+
+@interface GTLQuery (StandardProperties)
+@property (retain) NSString *fields;
 @end
 
 @implementation GTLService
@@ -240,6 +256,7 @@ static NSString *ETagIfPresent(GTLObject *obj) {
   [urlQueryParameters_ release];
   [additionalHTTPHeaders_ release];
 #if GTL_USE_SESSION_FETCHER
+  [delegateQueue_ release];
   [runLoopModes_ release];
 #endif
 
@@ -694,7 +711,11 @@ static NSString *ETagIfPresent(GTLObject *obj) {
 
   NSString *slug = [uploadParams slug];
   if ([slug length] > 0) {
+#if GTL_USE_SESSION_FETCHER
+    [fetcher setRequestValue:slug forHTTPHeaderField:@"Slug"];
+#else
     [[fetcher mutableRequest] setValue:slug forHTTPHeaderField:@"Slug"];
+#endif
   }
   return fetcher;
 }
@@ -1255,14 +1276,23 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
         [fetcher setProperty:parsedObject forKey:kFetcherParsedObjectKey];
       } else if (!isREST) {
         NSMutableDictionary *errorJSON = [jsonWrapper valueForKey:@"error"];
-        GTL_DEBUG_ASSERT(errorJSON != nil, @"no result or error in response:\n%@",
-                         jsonWrapper);
-        GTLErrorObject *errorObject = [GTLErrorObject objectWithJSON:errorJSON];
-        NSError *error = [errorObject foundationError];
+        if (errorJSON) {
+          GTLErrorObject *errorObject = [GTLErrorObject objectWithJSON:errorJSON];
+          NSError *error = [errorObject foundationError];
 
-        // Store the error and let it go to the callback
-        [fetcher setProperty:error
-                      forKey:kFetcherFetchErrorKey];
+          // Store the error and let it go to the callback
+          [fetcher setProperty:error
+                        forKey:kFetcherFetchErrorKey];
+        } else {
+#if DEBUG && !defined(NS_BLOCK_ASSERTIONS)
+          id<GTLQueryProtocol> query = ticket.executingQuery;
+          if ([query respondsToSelector:@selector(fields)]) {
+            id fields = [query performSelector:@selector(fields)];
+            GTL_ASSERT(fields != nil, @"no result or error in response:\n%@",
+                       jsonWrapper);
+          }
+#endif
+        }
       }
     }
 
@@ -2265,16 +2295,19 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
 }
 
 - (void)setDelegateQueue:(NSOperationQueue *)delegateQueue {
-#if !GTL_USE_SESSION_FETCHER
+#if GTL_USE_SESSION_FETCHER
+  [delegateQueue_ autorelease];
+  delegateQueue_ = [delegateQueue retain];
+#else
   self.fetcherService.delegateQueue = delegateQueue;
 #endif
 }
 
 - (NSOperationQueue *)delegateQueue {
-#if !GTL_USE_SESSION_FETCHER
-  return self.fetcherService.delegateQueue;
+#if GTL_USE_SESSION_FETCHER
+  return delegateQueue_;
 #else
-  return nil;
+  return self.fetcherService.delegateQueue;
 #endif
 }
 

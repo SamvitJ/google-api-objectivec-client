@@ -107,7 +107,9 @@ typedef enum {
 @property (readonly) GTLDiscoveryJsonSchema *resolvedSchema;
 @property (readonly, getter=hasItemsArrayProperty) BOOL itemsArrayProperty;
 @property (readonly) NSString *kindToRegister;
+@property (readonly) BOOL likelyInvalidUseOfKind;
 @property (readonly) NSString *rangeAndDefaultDescription;
+@property (readonly) BOOL isQueryRequestObject;
 
 - (GTLDiscoveryJsonSchema *)itemsSchemaResolving:(BOOL)resolving
                                            depth:(NSUInteger *)depth;
@@ -175,7 +177,8 @@ typedef enum {
                verboseLevel:(NSUInteger)verboseLevel
       allowRootURLOverrides:(BOOL)allowRootURLOverrides
       formattedNameOverride:(NSString *)formattedNameOverride
-           skipIfLikelyREST:(BOOL)skipIfLikelyREST;
+           skipIfLikelyREST:(BOOL)skipIfLikelyREST
+           useFrameworkName:(NSString *)frameworkName;
 
 - (void)adornMethods:(GTLDiscoveryRpcDescriptionMethods *)methods;
 - (void)adornSchema:(GTLDiscoveryJsonSchema *)schema
@@ -240,7 +243,8 @@ static NSString *ConstantName(NSString *grouping, NSString *name) {
 
 @synthesize api = api_,
             verboseLevel = verboseLevel_,
-            allowRootURLOverrides = allowRootURLOverrides_;
+            allowRootURLOverrides = allowRootURLOverrides_,
+            frameworkName = frameworkName_;
 
 @synthesize warnings = warnings_,
             infos = infos_;
@@ -249,25 +253,29 @@ static NSString *ConstantName(NSString *grouping, NSString *name) {
                    verboseLevel:(NSUInteger)verboseLevel
           allowRootURLOverrides:(BOOL)allowRootURLOverrides
           formattedNameOverride:(NSString *)formattedNameOverride
-               skipIfLikelyREST:(BOOL)skipIfLikelyREST {
+               skipIfLikelyREST:(BOOL)skipIfLikelyREST
+               useFrameworkName:(NSString *)frameworkName {
   return [[[self alloc] initWithApi:api
                        verboseLevel:verboseLevel
               allowRootURLOverrides:allowRootURLOverrides
               formattedNameOverride:formattedNameOverride
-                   skipIfLikelyREST:skipIfLikelyREST] autorelease];
+                   skipIfLikelyREST:skipIfLikelyREST
+                   useFrameworkName:frameworkName] autorelease];
 }
 
 - (instancetype)initWithApi:(GTLDiscoveryRpcDescription *)api
                verboseLevel:(NSUInteger)verboseLevel
       allowRootURLOverrides:(BOOL)allowRootURLOverrides
       formattedNameOverride:(NSString *)formattedNameOverride
-           skipIfLikelyREST:(BOOL)skipIfLikelyREST {
+           skipIfLikelyREST:(BOOL)skipIfLikelyREST
+           useFrameworkName:(NSString *)frameworkName {
   self = [super init];
   if (self != nil) {
     api_ = [api retain];
     verboseLevel_ = verboseLevel;
     allowRootURLOverrides_ = allowRootURLOverrides;
     formattedName_ = [formattedNameOverride copy];
+    frameworkName_ = [frameworkName copy];
     if (!api) {
       [self release];
       self = nil;
@@ -2016,7 +2024,7 @@ static NSString *MappedParamName(NSString *name) {
     // on the property declaration where they are fetched since that better
     // leads developers through the object tree.
     NSString *schemaDescription = schema.descriptionProperty;
-    if (schemaDescription) {
+    if (schemaDescription.length > 0) {
       NSString *wrappedDescription =
         [FHUtils stringOfLinesFromString:schemaDescription linePrefix:@"// "];
       [classHeader appendString:wrappedDescription];
@@ -2232,21 +2240,31 @@ static NSString *MappedParamName(NSString *name) {
   // Handle the 'kind' attribute for auto creating the right objects when
   // parsing.
   if (mode == kGenerateImplementation) {
-    NSString *kindToRegister = schema.kindToRegister;
-    if (kindToRegister != nil) {
-      // Have we suppressed the registered kind?
-      if ([schema propertyForKey:kSkipRegisteringKindKey] != nil) {
-        NSMutableString *loadMethod = [NSMutableString string];
-        [loadMethod appendFormat:@"// +load method not generated as another class also claims kind '%@'.\n",
-         kindToRegister];
-        [methodParts addObject:loadMethod];
-      } else {
-        NSMutableString *loadMethod = [NSMutableString string];
-        [loadMethod appendString:@"+ (void)load {\n"];
-        [loadMethod appendFormat:@"  [self registerObjectClassForKind:@\"%@\"];\n",
-         kindToRegister];
-        [loadMethod appendString:@"}\n"];
-        [methodParts addObject:loadMethod];
+    if (schema.likelyInvalidUseOfKind) {
+      NSString *blockKindMethod =
+          @"+ (BOOL)isKindValidForClassRegistry {\n"
+          @"  // This class has a \"kind\" property that doesn't appear to be usable to\n"
+          @"  // determine what type of object was encoded in the JSON.\n"
+          @"  return NO;\n"
+          @"}\n";
+      [methodParts addObject:blockKindMethod];
+    } else {
+      NSString *kindToRegister = schema.kindToRegister;
+      if (kindToRegister != nil) {
+        // Have we suppressed the registered kind?
+        if ([schema propertyForKey:kSkipRegisteringKindKey] != nil) {
+          NSMutableString *loadMethod = [NSMutableString string];
+          [loadMethod appendFormat:@"// +load method not generated as another class also claims kind '%@'.\n",
+           kindToRegister];
+          [methodParts addObject:loadMethod];
+        } else {
+          NSMutableString *loadMethod = [NSMutableString string];
+          [loadMethod appendString:@"+ (void)load {\n"];
+          [loadMethod appendFormat:@"  [self registerObjectClassForKind:@\"%@\"];\n",
+           kindToRegister];
+          [loadMethod appendString:@"}\n"];
+          [methodParts addObject:loadMethod];
+        }
       }
     }
   }
@@ -2461,11 +2479,15 @@ static NSString *MappedParamName(NSString *name) {
 
 - (NSString *)frameworkedImport:(NSString *)headerName {
   NSMutableString *result = [NSMutableString string];
-  [result appendFormat:@"#if %@\n", kFrameworkIncludeGate];
-  [result appendFormat:@"  #import \"%@/%@.h\"\n", kProjectPrefix, headerName];
-  [result appendString:@"#else\n"];
-  [result appendFormat:@"  #import \"%@.h\"\n", headerName];
-  [result appendString:@"#endif\n"];
+  if (self.frameworkName) {
+    [result appendFormat:@"#import <%@/%@.h>\n", self.frameworkName, headerName];
+  } else {
+    [result appendFormat:@"#if %@\n", kFrameworkIncludeGate];
+    [result appendFormat:@"  #import \"%@/%@.h\"\n", kProjectPrefix, headerName];
+    [result appendString:@"#else\n"];
+    [result appendFormat:@"  #import \"%@.h\"\n", headerName];
+    [result appendString:@"#endif\n"];
+  }
   return result;
 }
 
@@ -2573,7 +2595,7 @@ static NSString *MappedParamName(NSString *name) {
     for (GTLDiscoveryJsonSchema *param in methodParameters) {
       // The ObjC library lists the object that goes with the methods
       // independently, so keep it out of the parameters lists.
-      if ([param.name isEqual:kResourceParameterName]) {
+      if (param.isQueryRequestObject) {
         continue;
       }
 
@@ -3726,6 +3748,20 @@ static NSString *OverrideName(NSString *name, EQueryOrObject queryOrObject,
   return result;
 }
 
+- (BOOL)likelyInvalidUseOfKind {
+  BOOL result = NO;
+
+  GTLDiscoveryJsonSchema *property =
+    [self.properties additionalPropertyForName:@"kind"];
+  if ([property.type isEqual:@"string"] &&
+      property.defaultProperty.length == 0) {
+    // Has a 'kind', but no default, odds are it is misusing the attribute.
+    result = YES;
+  }
+
+  return result;
+}
+
 // Helper to generate a comment about the range and/or default value for
 // the parameter.
 - (NSString *)rangeAndDefaultDescription {
@@ -3766,6 +3802,24 @@ static NSString *OverrideName(NSString *name, EQueryOrObject queryOrObject,
   }
 
   return result;
+}
+
+// Helper to see if a param is a request object and gets handled as the
+// object parameter instead.
+- (BOOL)isQueryRequestObject {
+  // Check the name
+  if (![self.name isEqual:kResourceParameterName]) {
+    return NO;
+  }
+
+  GTLDiscoveryJsonSchema *resolved = self.resolvedSchema;
+  if (![resolved.type isEqual:@"object"]) {
+    // The api is using "resource" for something other than an object, that
+    // doesn't really make sense for JSON-RPC, but let it work.
+    return NO;
+  }
+
+  return YES;
 }
 
 // Fetching the item's schema even if it is nested (array inside of array...),
@@ -4123,7 +4177,10 @@ static FHTypeInfo *LookupTypeInfo(NSString *typeString,
   // The request object is the parameter named 'resource'.
   GTLDiscoveryJsonSchema *result =
     [self.parameters.additionalProperties objectForKey:kResourceParameterName];
-  return result;
+  if (result.isQueryRequestObject) {
+    return result;
+  }
+  return nil;
 }
 
 // Sorted by parameterOrder first, and then alphabetical for the rest. This
@@ -4162,7 +4219,9 @@ static FHTypeInfo *LookupTypeInfo(NSString *typeString,
 
     // Calculate the value for sortedParameters and save it.
     NSMutableArray *worker = [NSMutableArray arrayWithArray:allOrderedKeys];
-    [worker removeObject:kResourceParameterName];
+    if (self.request) {
+      [worker removeObject:kResourceParameterName];
+    }
     NSArray *sortedParameters = [paramsDict objectsForKeys:worker
                                             notFoundMarker:[NSNull null]];
     [self setProperty:sortedParameters forKey:kSortedParametersKey];

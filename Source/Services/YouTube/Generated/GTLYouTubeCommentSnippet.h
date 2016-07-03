@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,8 @@
 // Service:
 //   YouTube Data API (youtube/v3)
 // Description:
-//   Programmatic access to YouTube features.
+//   Supports core YouTube features, such as uploading videos, creating and
+//   managing playlists, searching for content, and much more.
 // Documentation:
 //   https://developers.google.com/youtube/v3
 // Classes:
@@ -34,8 +35,6 @@
   #import "GTLObject.h"
 #endif
 
-@class GTLYouTubeChannelId;
-
 // ----------------------------------------------------------------------------
 //
 //   GTLYouTubeCommentSnippet
@@ -46,7 +45,7 @@
 @interface GTLYouTubeCommentSnippet : GTLObject
 
 // The id of the author's YouTube channel, if any.
-@property (nonatomic, retain) GTLYouTubeChannelId *authorChannelId;
+@property (nonatomic, retain) id authorChannelId;
 
 // Link to the author's YouTube channel, if any.
 @property (nonatomic, copy) NSString *authorChannelUrl;

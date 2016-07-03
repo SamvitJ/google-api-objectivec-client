@@ -22,11 +22,11 @@
 // Service:
 //   Search Console API (webmasters/v3)
 // Description:
-//   Lets you view Google Search Console data for your verified sites.
+//   View Google Search Console data for your verified sites.
 // Documentation:
 //   https://developers.google.com/webmaster-tools/
 // Classes:
-//   GTLQueryWebmasters (13 custom class methods, 15 custom properties)
+//   GTLQueryWebmasters (13 custom class methods, 16 custom properties)
 
 #import "GTLQueryWebmasters.h"
 
@@ -44,7 +44,7 @@
 
 @dynamic aggregationType, category, dimensionFilterGroups, dimensions, endDate,
          feedpath, fields, latestCountsOnly, platform, rowLimit, searchType,
-         sitemapIndex, siteUrl, startDate, url;
+         sitemapIndex, siteUrl, startDate, startRow, url;
 
 + (NSDictionary *)arrayPropertyToClassMap {
   NSDictionary *map = @{

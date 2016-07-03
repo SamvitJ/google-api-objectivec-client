@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,13 @@
 // Documentation:
 //   https://cloud.google.com/bigquery/
 // Classes:
-//   GTLBigqueryJobStatistics2 (0 custom class methods, 5 custom properties)
+//   GTLBigqueryJobStatistics2 (0 custom class methods, 7 custom properties)
 
 #import "GTLBigqueryJobStatistics2.h"
 
 #import "GTLBigqueryExplainQueryStage.h"
+#import "GTLBigqueryTableReference.h"
+#import "GTLBigqueryTableSchema.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -38,12 +40,13 @@
 //
 
 @implementation GTLBigqueryJobStatistics2
-@dynamic billingTier, cacheHit, queryPlan, totalBytesBilled,
-         totalBytesProcessed;
+@dynamic billingTier, cacheHit, queryPlan, referencedTables, schema,
+         totalBytesBilled, totalBytesProcessed;
 
 + (NSDictionary *)arrayPropertyToClassMap {
   NSDictionary *map = @{
-    @"queryPlan" : [GTLBigqueryExplainQueryStage class]
+    @"queryPlan" : [GTLBigqueryExplainQueryStage class],
+    @"referencedTables" : [GTLBigqueryTableReference class]
   };
   return map;
 }

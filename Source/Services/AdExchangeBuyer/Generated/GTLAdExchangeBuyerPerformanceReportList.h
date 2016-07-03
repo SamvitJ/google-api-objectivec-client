@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,8 +44,6 @@
 //
 
 // The configuration data for an Ad Exchange performance report list.
-// https://sites.google.com/a/google.com/adx-integration/Home/engineering/binary-releases/rtb-api-release
-// https://cs.corp.google.com/#piper///depot/google3/contentads/adx/tools/rtb_api/adxrtb.py
 
 @interface GTLAdExchangeBuyerPerformanceReportList : GTLObject
 

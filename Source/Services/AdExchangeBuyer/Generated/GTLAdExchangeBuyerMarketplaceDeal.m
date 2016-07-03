@@ -1,4 +1,4 @@
-/* Copyright (c) 2015 Google Inc.
+/* Copyright (c) 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,12 @@
 // Documentation:
 //   https://developers.google.com/ad-exchange/buyer-rest
 // Classes:
-//   GTLAdExchangeBuyerMarketplaceDeal (0 custom class methods, 20 custom properties)
+//   GTLAdExchangeBuyerMarketplaceDeal (0 custom class methods, 23 custom properties)
 
 #import "GTLAdExchangeBuyerMarketplaceDeal.h"
 
 #import "GTLAdExchangeBuyerContactInformation.h"
+#import "GTLAdExchangeBuyerDealServingMetadata.h"
 #import "GTLAdExchangeBuyerDealTerms.h"
 #import "GTLAdExchangeBuyerDeliveryControl.h"
 #import "GTLAdExchangeBuyerPrivateData.h"
@@ -44,11 +45,13 @@
 //
 
 @implementation GTLAdExchangeBuyerMarketplaceDeal
-@dynamic buyerPrivateData, creationTimeMs, creativePreApprovalPolicy, dealId,
+@dynamic buyerPrivateData, creationTimeMs, creativePreApprovalPolicy,
+         creativeSafeFrameCompatibility, dealId, dealServingMetadata,
          deliveryControl, externalDealId, flightEndTimeMs, flightStartTimeMs,
-         inventoryDescription, kind, lastUpdateTimeMs, name, offerId,
-         offerRevisionNumber, orderId, sellerContacts, sharedTargetings,
-         syndicationProduct, terms, webPropertyCode;
+         inventoryDescription, kind, lastUpdateTimeMs, name, productId,
+         productRevisionNumber, programmaticCreativeSource, proposalId,
+         sellerContacts, sharedTargetings, syndicationProduct, terms,
+         webPropertyCode;
 
 + (NSDictionary *)arrayPropertyToClassMap {
   NSDictionary *map = @{
